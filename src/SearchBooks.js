@@ -39,6 +39,7 @@ class SearchBooks extends Component {
         <ol className="books-grid">
         {books.map((book) => (
           <li>
+            {console.log(book)}
             <Book
               book={book}
               />

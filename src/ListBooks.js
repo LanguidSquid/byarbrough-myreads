@@ -7,7 +7,6 @@ import * as BooksAPI from './BooksAPI'
 
 class ListBooks extends Component {
     static PropTypes = {
-    	showSearchPage: PropTypes.bool.isRequired,
       books: PropTypes.object.isRequired
     }
 
@@ -16,11 +15,20 @@ class ListBooks extends Component {
   }
 
   componentDidMount() {
-    this.setState({ books: this.props.books })
+    BooksAPI.getAll().then((books) => {
+      this.setState({ books: books })
+      console.log(this.state.books)
+    })
+  }
+
+  updateQuery = (book, shelf) => {
+    BooksAPI.update(book, shelf).then((books) => {
+      this.setState({ books: books })
+      console.log(this.state.books)
+    })
   }
 
 	render () {
-		const { showSearchPage } = this.props
     const { books } = this.state
 
 		return (

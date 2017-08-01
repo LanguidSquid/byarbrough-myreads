@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import Authors from './Authors'
 
 class Book extends Component {
   static PropTypes = {
@@ -16,11 +15,12 @@ class Book extends Component {
     return JSON.stringify(authors).split('"').join('').split('[').join('').split(']').join('').split(',').join(', ').split('  ').join(' ')
   }
 
+
   componentDidMount() {
     var authorList = this.processAuthorsForHumanReadability(this.props.book.authors)
     this.setState({ authorList: authorList })
     this.setState({ book: this.props.book })
-    console.log(this.props.book.title)
+    console.log(this.state.book)
   }
 
 	render () {
@@ -35,7 +35,7 @@ class Book extends Component {
             <div className="book-shelf-changer">
               <select>
                 <option value="none" disabled>Move to...</option>
-                <option value="currentlyReading">Currently Reading</option>
+                <option value="currentlyReading" selected>Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>
                 <option value="read">Read</option>
                 <option value="none">None</option>
@@ -44,9 +44,6 @@ class Book extends Component {
           </div>
           <div className="book-title">{book.title}</div>
           <div className="book-authors">{this.state.authorList}
-            <Authors
-              authors={book.title}
-              />
           </div>
         </div>
 

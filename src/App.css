@@ -172,3 +172,7 @@ body, .app {
   text-align: center;
   font-size: 0.8em;
 }
+
+option{
+  padding: 5px 1px 5px 1px;
+}
