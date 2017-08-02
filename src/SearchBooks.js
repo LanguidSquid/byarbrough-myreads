@@ -5,8 +5,8 @@ import * as BooksAPI from './BooksAPI'
 import Book from './Book'
 
 class SearchBooks extends Component {
-    static PropTypes = {
-    }
+  static PropTypes = {
+  }
 
   state = {
     "books": []

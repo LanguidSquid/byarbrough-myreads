@@ -5,7 +5,8 @@ import Book from './Book'
 class Bookshelf extends Component {
     static PropTypes = {
       shelfType: PropTypes.string.isRequired,
-      books: PropTypes.array.isRequired
+      books: PropTypes.array.isRequired,
+      onShelfChange: PropTypes.func.isRequired
     }
 
   componentDidMount() {
@@ -13,7 +14,7 @@ class Bookshelf extends Component {
   }
 
 	render () {
-		const { shelfType, books } = this.props
+		const { shelfType, books, onShelfChange } = this.props
 
 		return (
       <div className="bookshelf">
@@ -33,6 +34,9 @@ class Bookshelf extends Component {
               <li>
                 <Book
                   book={book}
+                  onShelfChange={(event, book) => (
+                    this.onShelfChange(event, book)
+                    )}
                   />
               </li>
               ))}

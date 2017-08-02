@@ -21,8 +21,10 @@ class ListBooks extends Component {
     })
   }
 
-  updateQuery = (book, shelf) => {
-    BooksAPI.update(book, shelf).then((books) => {
+  updateShelf = (event, book) => {
+    console.log(event.target.value)
+    console.log(book)
+    BooksAPI.update(event.target.value, book).then((books) => {
       this.setState({ books: books })
       console.log(this.state.books)
     })
@@ -41,14 +43,23 @@ class ListBooks extends Component {
             <Bookshelf
               shelfType="currentlyReading"
               books={books.filter((book) => book.shelf === "currentlyReading")}
+              onShelfChange={(book, shelf) => (
+                this.updateShelf(book, shelf)
+                )}
               />
             <Bookshelf
               shelfType="wantToRead"
               books={books.filter((book) => book.shelf === "wantToRead")}
+              onShelfChange={(book, shelf) => (
+                this.updateShelf(book, shelf)
+                )}
               />
             <Bookshelf
               shelfType="read"
               books={books.filter((book) => book.shelf === "read")}
+              onShelfChange={(book, shelf) => (
+                this.updateShelf(book, shelf)
+                )}
               />
           </div>
         </div>
