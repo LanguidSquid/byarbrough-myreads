@@ -6,28 +6,24 @@ import * as BooksAPI from './BooksAPI'
 
 
 class ListBooks extends Component {
-    static PropTypes = {
-      books: PropTypes.object.isRequired
-    }
-
   state = {
     "books": []
   }
 
   componentDidMount() {
+    console.log('ListBooks - didMount')
+    this.refreshBooksList()
+  }
+
+  refreshBooksList = () => {
     BooksAPI.getAll().then((books) => {
       this.setState({ books: books })
-      console.log(this.state.books)
+      console.log('called setState, maybe it decided our changes do not warrant a re-render')
     })
   }
 
-  updateShelf = (event, book) => {
-    console.log(event.target.value)
-    console.log(book)
-    BooksAPI.update(event.target.value, book).then((books) => {
-      this.setState({ books: books })
-      console.log(this.state.books)
-    })
+  updateShelf = (book, event) => {
+    BooksAPI.update(book, event.target.value).then(this.refreshBooksList())
   }
 
 	render () {
@@ -43,23 +39,17 @@ class ListBooks extends Component {
             <Bookshelf
               shelfType="currentlyReading"
               books={books.filter((book) => book.shelf === "currentlyReading")}
-              onShelfChange={(book, shelf) => (
-                this.updateShelf(book, shelf)
-                )}
+              updateShelf={this.updateShelf}
               />
             <Bookshelf
               shelfType="wantToRead"
               books={books.filter((book) => book.shelf === "wantToRead")}
-              onShelfChange={(book, shelf) => (
-                this.updateShelf(book, shelf)
-                )}
+              updateShelf={this.updateShelf}
               />
             <Bookshelf
               shelfType="read"
               books={books.filter((book) => book.shelf === "read")}
-              onShelfChange={(book, shelf) => (
-                this.updateShelf(book, shelf)
-                )}
+              updateShelf={this.updateShelf}
               />
           </div>
         </div>

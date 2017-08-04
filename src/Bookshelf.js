@@ -3,18 +3,27 @@ import PropTypes from 'prop-types'
 import Book from './Book'
 
 class Bookshelf extends Component {
-    static PropTypes = {
-      shelfType: PropTypes.string.isRequired,
-      books: PropTypes.array.isRequired,
-      onShelfChange: PropTypes.func.isRequired
-    }
+  static PropTypes = {
+    shelfType: PropTypes.string.isRequired,
+    books: PropTypes.array.isRequired,
+    updateShelf: PropTypes.func.isRequired
+  }
+
+  state = {
+    "shelfType": "",
+    "books": []
+  }
 
   componentDidMount() {
-    console.log(this.props);
+    console.log('Bookshelf - didMount')
+    this.setState({
+      shelfType: this.props.shelfType,
+      books: this.props.books
+    });
   }
 
 	render () {
-		const { shelfType, books, onShelfChange } = this.props
+		const { shelfType, books } = this.props
 
 		return (
       <div className="bookshelf">
@@ -34,9 +43,7 @@ class Bookshelf extends Component {
               <li>
                 <Book
                   book={book}
-                  onShelfChange={(event, book) => (
-                    this.onShelfChange(event, book)
-                    )}
+                  updateShelf={this.props.updateShelf}
                   />
               </li>
               ))}
