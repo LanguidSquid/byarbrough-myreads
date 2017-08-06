@@ -11,14 +11,12 @@ class ListBooks extends Component {
   }
 
   componentDidMount() {
-    console.log('ListBooks - didMount')
     this.refreshBooksList()
   }
 
   refreshBooksList = () => {
     BooksAPI.getAll().then((books) => {
       this.setState({ books: books })
-      console.log('called setState, maybe it decided our changes do not warrant a re-render')
     })
   }
 

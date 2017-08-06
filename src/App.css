@@ -7,6 +7,9 @@ body {
 body, .app {
   background: white;
 }
+h1 {
+  margin-left: 0 auto;
+}
 
 /* main page */
 
@@ -101,6 +104,7 @@ body, .app {
 
 .search-books-results {
   padding: 80px 10px 20px;
+  margin: 0 auto;
 }
 
 /* books grid */
@@ -171,6 +175,12 @@ body, .app {
   padding: 20px 10px 0;
   text-align: center;
   font-size: 0.8em;
+}
+.empty-results-text{
+  color: #CCC;
+  text-align: center;
+  margin: 0 auto;
+  line-height: 1.5;
 }
 
 option{

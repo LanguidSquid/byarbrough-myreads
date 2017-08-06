@@ -15,7 +15,6 @@ class Bookshelf extends Component {
   }
 
   componentDidMount() {
-    console.log('Bookshelf - didMount')
     this.setState({
       shelfType: this.props.shelfType,
       books: this.props.books
@@ -40,7 +39,7 @@ class Bookshelf extends Component {
           <div className="bookshelf-books">
             <ol className="books-grid">
               {books.map((book) => (
-              <li>
+              <li key={book.id}>
                 <Book
                   book={book}
                   updateShelf={this.props.updateShelf}
