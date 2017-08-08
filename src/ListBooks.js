@@ -6,26 +6,18 @@ import * as BooksAPI from './BooksAPI'
 
 
 class ListBooks extends Component {
-  state = {
-    "books": []
+  static PropTypes = {
+    books: PropTypes.object.isRequired,
+    refreshBooksList: PropTypes.func.isRequired,
+    updateShelf: PropTypes.func.isRequired
   }
 
   componentDidMount() {
-    this.refreshBooksList()
-  }
-
-  refreshBooksList = () => {
-    BooksAPI.getAll().then((books) => {
-      this.setState({ books: books })
-    })
-  }
-
-  updateShelf = (book, event) => {
-    BooksAPI.update(book, event.target.value).then(this.refreshBooksList())
+    this.props.refreshBooksList()
   }
 
 	render () {
-    const { books } = this.state
+    const { books, updateShelf } = this.props
 
 		return (
       <div className="list-books">
@@ -37,17 +29,17 @@ class ListBooks extends Component {
             <Bookshelf
               shelfType="currentlyReading"
               books={books.filter((book) => book.shelf === "currentlyReading")}
-              updateShelf={this.updateShelf}
+              updateShelf={updateShelf}
               />
             <Bookshelf
               shelfType="wantToRead"
               books={books.filter((book) => book.shelf === "wantToRead")}
-              updateShelf={this.updateShelf}
+              updateShelf={updateShelf}
               />
             <Bookshelf
               shelfType="read"
               books={books.filter((book) => book.shelf === "read")}
-              updateShelf={this.updateShelf}
+              updateShelf={updateShelf}
               />
           </div>
         </div>

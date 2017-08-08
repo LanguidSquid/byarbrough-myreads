@@ -9,20 +9,8 @@ class Bookshelf extends Component {
     updateShelf: PropTypes.func.isRequired
   }
 
-  state = {
-    "shelfType": "",
-    "books": []
-  }
-
-  componentDidMount() {
-    this.setState({
-      shelfType: this.props.shelfType,
-      books: this.props.books
-    });
-  }
-
 	render () {
-		const { shelfType, books } = this.props
+		const { shelfType, books, updateShelf } = this.props
 
 		return (
       <div className="bookshelf">
@@ -42,7 +30,7 @@ class Bookshelf extends Component {
               <li key={book.id}>
                 <Book
                   book={book}
-                  updateShelf={this.props.updateShelf}
+                  updateShelf={updateShelf}
                   />
               </li>
               ))}
