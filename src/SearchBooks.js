@@ -7,19 +7,23 @@ import Book from './Book'
 class SearchBooks extends Component {
   static PropTypes = {
     books: PropTypes.object.isRequired,
-    updateShelf: PropTypes.func.isRequired,
+    updateBookStatus: PropTypes.func.isRequired,
     updateQuery: PropTypes.func.isRequired
   }
 
+  componentDidMount(){
+    this.props.updateQuery('')
+  }
+
 	render () {
-    const { books, updateShelf, updateQuery } = this.props
+    const { books, updateBookStatus, updateQuery } = this.props
 
 		return (
       <div className="search-books">
         <div className="search-books-bar">
           <Link className="close-search" to="/">Close</Link>
           <div className="search-books-input-wrapper">
-            <input type="text" onChange={(event) => updateQuery(event)} placeholder="Search by title or author"/>
+            <input type="text" onChange={(event) => updateQuery(event.target.value)} placeholder="Search by title or author"/>
           </div>
         </div>
         { books.length > 0 &&
@@ -29,7 +33,7 @@ class SearchBooks extends Component {
               <li key={book.id}>
                 <Book
                   book={book}
-                  updateShelf={updateShelf}
+                  updateShelf={updateBookStatus}
                   />
               </li>
             ))}

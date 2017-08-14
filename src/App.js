@@ -11,7 +11,7 @@ class BooksApp extends Component {
   }
 
   updateQuery = (event) => {
-    var query = event.target.value;
+    var query = event;
     if(!!query){
       BooksAPI.search(query, 10).then((books) => {
         this.setState({ books: books })
@@ -27,16 +27,18 @@ class BooksApp extends Component {
     }
   }
 
+  updateBookStatus = (book, event) => {
+    if(!!event){
+      BooksAPI.update(book, event.target.value)
+    }
+  }
+
   refreshBooksList = () => {
     BooksAPI.getAll().then((books) => {
       if(books != this.state.books){
         this.setState({ books: books })
       }
     })
-  }
-
-  componentDidMount() {
-    this.refreshBooksList()
   }
 
   render() {
@@ -47,7 +49,7 @@ class BooksApp extends Component {
         <Route path='/search' render={({ history }) => (
           <SearchBooks
             books={books}
-            updateShelf={this.updateShelf}
+            updateBookStatus={this.updateBookStatus}
             updateQuery={this.updateQuery}
             />
         )}/>
