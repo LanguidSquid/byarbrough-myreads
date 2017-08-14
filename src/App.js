@@ -43,9 +43,7 @@ class BooksApp extends Component {
 
   refreshBooksList = () => {
     BooksAPI.getAll().then((books) => {
-      console.log('refreshBooks')
       if(books != this.state.books){
-        console.log('books changed')
         this.setState({ books: books })
       }
     })
