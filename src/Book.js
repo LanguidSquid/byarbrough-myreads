@@ -32,7 +32,6 @@ class Book extends Component {
 
 		return (
       <div className="book-component">
-      {console.log(book)}
         {!!book && !!book.imageLinks &&
           <div className="book">
             <div className="book-top">
