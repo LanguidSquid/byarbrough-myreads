@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link, Route } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import SearchBooks from './SearchBooks'
 import ListBooks from './ListBooks'
 import * as BooksAPI from './BooksAPI'
@@ -7,11 +7,13 @@ import './App.css'
 
 class BooksApp extends Component {
   state = {
-    "books": []
+    "books": [],
+    "currentQuery" : ""
   }
 
   updateQuery = (event) => {
     var query = event;
+
     if(!!query){
       BooksAPI.search(query, 10).then((books) => {
         this.setState({ books: books })
@@ -19,6 +21,12 @@ class BooksApp extends Component {
     }else{
         this.setState({ books: [] })
     }
+
+    this.setState({ currentQuery: query })
+  }
+
+  updateSearchWithCurrentQuery = () => {
+    this.updateQuery(this.state.currentQuery)
   }
 
   updateShelf = (book, event) => {
@@ -29,13 +37,15 @@ class BooksApp extends Component {
 
   updateBookStatus = (book, event) => {
     if(!!event){
-      BooksAPI.update(book, event.target.value)
+      BooksAPI.update(book, event.target.value).then(this.updateSearchWithCurrentQuery())
     }
   }
 
   refreshBooksList = () => {
     BooksAPI.getAll().then((books) => {
+      console.log('refreshBooks')
       if(books != this.state.books){
+        console.log('books changed')
         this.setState({ books: books })
       }
     })
