@@ -14,7 +14,7 @@ class Bookshelf extends Component {
 
 		return (
       <div className="bookshelf">
-        <div className ="shelfType">
+        <div className="shelfType">
           {shelfType === "currentlyReading" && (
             <h2 className="bookshelf-title">Currently Reading</h2>
           )}

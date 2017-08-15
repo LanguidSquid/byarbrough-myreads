@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import * as BooksAPI from './BooksAPI'
 
 class Book extends Component {
   static PropTypes = {
@@ -14,7 +13,7 @@ class Book extends Component {
   }
 
   processAuthorsForHumanReadability = (authors) => {
-    var authors = JSON.stringify(authors)
+    authors = JSON.stringify(authors)
     if(!!authors){
       return authors.split('"').join('').split('[').join('').split(']').join('').split(',').join(', ').split('  ').join(' ')
     }else{
@@ -27,7 +26,7 @@ class Book extends Component {
   }
 
   render () {
-    const { book, id } = this.props
+    const { book } = this.props
     var authorList = this.processAuthorsForHumanReadability(this.props.book.authors)
 
 		return (
