@@ -12,10 +12,10 @@ class BooksApp extends Component {
     "currentQuery" : ""
   }
 
-  updateQuery = (event) => {
-    var query = event.target.value;
+  updateQuery = (query) => {
     if(!!query){
       BooksAPI.search(query, 20).then((books) => {
+        this.setShelf(books)
         this.setState({ searchBooks: books })
       }).then(() => this.refreshBooksList())
     }else{
@@ -23,6 +23,18 @@ class BooksApp extends Component {
     }
 
     this.setState({ currentQuery: query })
+  }
+
+  setShelf = (books) => {
+    this.refreshBooksList()
+    books.forEach((book, index, books) => {
+      for(var i = 0; i < this.state.shelvedBooks.length; i++){
+        if(this.state.shelvedBooks[i].id === book.id){
+          books.splice(index, 1)
+          books.splice(index, 0, this.state.shelvedBooks[i])
+        }
+      }
+    })
   }
 
   updateSearchWithCurrentQuery = () => {
@@ -60,6 +72,7 @@ class BooksApp extends Component {
             shelvedBooks={shelvedBooks}
             updateBookStatus={this.updateBookStatus}
             updateQuery={this.updateQuery}
+            refreshBooksList={this.refreshBooksList}
             />
         )}/>
         <Route exact path='/' render={() => (

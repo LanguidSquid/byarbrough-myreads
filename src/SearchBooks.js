@@ -8,12 +8,12 @@ class SearchBooks extends Component {
     books: PropTypes.object.isRequired,
     shelvedBooks: PropTypes.object.isRequired,
     updateShelf: PropTypes.func.isRequired,
-    updateQuery: PropTypes.func.isRequired
+    updateQuery: PropTypes.func.isRequired,
+    refreshBooksList: PropTypes.func.isRequired
   }
 
   componentDidMount() {
-    console.log(this.props.shelvedBooks);
-    console.log(this.props.books);
+    this.props.refreshBooksList()
   }
 
 	render () {
@@ -24,7 +24,7 @@ class SearchBooks extends Component {
         <div className="search-books-bar">
           <Link className="close-search" to="/">Close</Link>
           <div className="search-books-input-wrapper">
-            <input type="text" onChange={(event) => updateQuery(event)} placeholder="Search by title or author"/>
+            <input type="text" onChange={(event) => updateQuery(event.target.value)} placeholder="Search by title or author"/>
           </div>
         </div>
         { books.length > 0 &&
