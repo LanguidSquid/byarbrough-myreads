@@ -47,12 +47,6 @@ class BooksApp extends Component {
     }
   }
 
-  updateBookStatus = (book, event) => {
-    if(!!event){
-      BooksAPI.update(book, event.target.value).then(() => this.updateSearchWithCurrentQuery())
-    }
-  }
-
   refreshBooksList = () => {
     BooksAPI.getAll().then((books) => {
       if(books !== this.state.books){
@@ -70,7 +64,7 @@ class BooksApp extends Component {
           <SearchBooks
             books={searchBooks}
             shelvedBooks={shelvedBooks}
-            updateBookStatus={this.updateBookStatus}
+            updateShelf={this.updateShelf}
             updateQuery={this.updateQuery}
             refreshBooksList={this.refreshBooksList}
             />
